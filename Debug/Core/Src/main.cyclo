@@ -1,0 +1,10 @@
+../Core/Src/main.c:79:5:main	1
+../Core/Src/main.c:138:6:SystemClock_Config	3
+../Core/Src/main.c:180:13:MX_TIM2_Init	6
+../Core/Src/main.c:238:13:MX_USART6_UART_Init	2
+../Core/Src/main.c:269:13:MX_GPIO_Init	1
+../Core/Src/main.c:285:6:set_timer_globals	2
+../Core/Src/main.c:300:7:calculate_temperature	1
+../Core/Src/main.c:306:7:calculate_pressure	1
+../Core/Src/main.c:311:6:HAL_TIM_IC_CaptureCallback	8
+../Core/Src/main.c:351:6:Error_Handler	1
