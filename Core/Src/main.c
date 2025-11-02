@@ -63,6 +63,7 @@ static void MX_TIM2_Init(void);
 void set_timer_globals(void);
 float calculate_temperature(uint32_t ticks_count);
 float calculate_pressure(uint32_t ticks_count);
+eStatus calculate_sensor_status(uint32_t ticks_count);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -118,8 +119,9 @@ int main(void) {
 	/* USER CODE BEGIN WHILE */
 	while (1) {
 		// HAL_UART_Transmit(&huart6, data_block, sizeof(data_block) - 1, 100);
-		sprintf((char*) sensor_data, "Status: %.2f, Temperature: %.2f °C, Pressure: %.2f Bar\n", sensor1.statusTime,
-				calculate_temperature(sensor1.temperatureTicks), calculate_pressure(sensor1.pressureTicks));
+		sprintf((char*) sensor_data, "Status: %d, Temperature: %.2f °C, Pressure: %.2f Bar\n",
+				calculate_sensor_status(sensor1.statusTicks), calculate_temperature(sensor1.temperatureTicks),
+				calculate_pressure(sensor1.pressureTicks));
 
 		HAL_UART_Transmit(&huart6, (uint8_t*) sensor_data, strlen((char*) sensor_data), HAL_MAX_DELAY);
 
@@ -306,6 +308,27 @@ float calculate_temperature(uint32_t ticks_count) {
 float calculate_pressure(uint32_t ticks_count) {
 	float time_us = ticks_count * tick_time_micros;
 	return (time_us + 64.0f) / 384.0f;
+}
+
+eStatus calculate_sensor_status(uint32_t ticks_count) {
+	// in status field is the tolerance +/- 25µs
+	float time_us = ticks_count * tick_time_micros;
+	eStatus retVal;
+
+	if (time_us >= 231 && time_us <= 281)
+		retVal = okStatus;
+
+	if (time_us >= 359 && time_us <= 409)
+		retVal = pressureFailure;
+
+	if (time_us >= 487 && time_us <= 537)
+		retVal = temperatureFailure;
+
+	if (time_us >= 615 && time_us <= 665)
+		retVal = hardwareFailure;
+
+	return retVal;
+
 }
 
 void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {

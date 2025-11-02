@@ -41,11 +41,16 @@ typedef enum {
 	waitForStatus = 0, statusReceived = 1, temperatureReceived = 2, pressureReceived = 3
 } eReceiveState;
 
+typedef enum {
+	okStatus = 0, pressureFailure = 1, temperatureFailure = 2, hardwareFailure = 3
+} eStatus;
+
 typedef struct {
 	eReceiveState receiveStatus;
 
 	uint32_t statusTicks;
 	float statusTime;
+	eStatus sensorStatus;
 
 	uint32_t temperatureTicks;
 	float temperatureTime;
