@@ -119,7 +119,7 @@ int main(void) {
 	/* USER CODE BEGIN WHILE */
 	while (1) {
 		// HAL_UART_Transmit(&huart6, data_block, sizeof(data_block) - 1, 100);
-		sprintf((char*) sensor_data, "Status: %d, Temperature: %.2f °C, Pressure: %.2f Bar\n",
+		sprintf((char*) sensor_data, "Status: %d, Temperature: %.2f °C, Pressure: %.2f Bar\r\n",
 				calculate_sensor_status(sensor1.statusTicks), calculate_temperature(sensor1.temperatureTicks),
 				calculate_pressure(sensor1.pressureTicks));
 

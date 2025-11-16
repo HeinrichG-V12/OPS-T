@@ -60,8 +60,8 @@ all: main-build
 main-build: OPS-T.elf secondary-outputs
 
 # Tool invocations
-OPS-T.elf OPS-T.map: $(OBJS) $(USER_OBJS) D:\development\STM32CubeIDE\workspace_1.19.0\OPS\STM32F401CCUX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "OPS-T.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\development\STM32CubeIDE\workspace_1.19.0\OPS\STM32F401CCUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="OPS-T.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
+OPS-T.elf OPS-T.map: $(OBJS) $(USER_OBJS) D:\development\STM32CubeIDE\workspace_1.19.0\OPS-T\STM32F401CCUX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "OPS-T.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\development\STM32CubeIDE\workspace_1.19.0\OPS-T\STM32F401CCUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="OPS-T.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
